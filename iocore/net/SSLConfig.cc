@@ -714,14 +714,19 @@ SSLConfigParams::getCTX(const char *client_cert, const char *key_file, const cha
     }
 
     // Set CA information for verifying peer cert
-    if (ca_bundle_file != nullptr || ca_bundle_path != nullptr) {
-      if (!SSL_CTX_load_verify_locations(client_ctx.get(), ca_bundle_file, ca_bundle_path)) {
-        SSLError("invalid client CA Certificate file (%s) or CA Certificate path (%s)", ca_bundle_file, ca_bundle_path);
-        goto fail;
-      }
-    } else if (!SSL_CTX_set_default_verify_paths(client_ctx.get())) {
-      SSLError("failed to set the default verify paths");
-      goto fail;
+    // if (ca_bundle_file != nullptr || ca_bundle_path != nullptr) {
+    //   if (!SSL_CTX_load_verify_locations(client_ctx.get(), ca_bundle_file, ca_bundle_path)) {
+    //     SSLError("invalid client CA Certificate file (%s) or CA Certificate path (%s)", ca_bundle_file, ca_bundle_path);
+    //     goto fail;
+    //   }
+    // } else if (!SSL_CTX_set_default_verify_paths(client_ctx.get())) {
+    //   SSLError("failed to set the default verify paths");
+    //   goto fail;
+    // }
+
+    if (!SSL_CTX_set_default_verify_paths(client_ctx.get())) {
+          SSLError("failed to set the default verify paths");
+          goto fail;
     }
 
     // Try to update the context in mapping with lock acquired. If a valid context exists, return it without changing the structure.

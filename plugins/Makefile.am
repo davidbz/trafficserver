@@ -53,6 +53,7 @@ include s3_auth/Makefile.inc
 include stats_over_http/Makefile.inc
 include tcpinfo/Makefile.inc
 include xdebug/Makefile.inc
+include mitm/Makefile.inc
 
 if BUILD_EXPERIMENTAL_PLUGINS
 
